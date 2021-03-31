@@ -25,39 +25,46 @@ while x == 0:
 
     envio = True
     envio2 = True
+    priceRange = True
 
     for i in range(len(values)):
 
         valueFloat = float(values[i])
 
-        rango = 250
+        rango = 100
 
         if price < valueFloat - rango and price > valueFloat - rango*2 and envio == True:
             print(date, coin.upper(), f": ${price:.0f} se esta acercando a resistencia de: ",
                   types[i], f" >>>>> {valueFloat:.0f}")
             envio = False
             envio2 = True
+            priceRange = True
 
         if price < valueFloat and price > valueFloat - rango and envio2 == True:
             print(date, coin.upper(), f": ${price:.0f} esta muy cerca de resistencia de: ",
                   types[i], f" >>>>> {valueFloat:.0f}")
             envio = True
             envio2 = False
+            priceRange = True
 
         if price > valueFloat + rango and price < valueFloat + rango*2 and envio == True:
             print(date, coin.upper(), f": ${price:.0f} se esta acercando a soporte de: ",
                   types[i], f" >>>>> {valueFloat:.0f}")
             envio = False
             envio2 = True
+            priceRange = True
 
         if price > valueFloat and price < valueFloat + rango and envio2 == True:
             print(date, coin.upper(), f": ${price:.0f} esta muy cerca de soporte de: ",
                   types[i], f" >>>>> {valueFloat:.0f}")
             envio = True
             envio2 = False
+            priceRange = True
 
-        if price > valueFloat + rango and price < valueFloat + rango:
+        if (price > valueFloat + rango or price < valueFloat + rango) and priceRange == True:
             envio = True
+            priceRange = False
+            print(f"BTC: ${price:.0f}")
 
     time.sleep(10)
 
